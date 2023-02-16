@@ -7,6 +7,7 @@ import {NotFound} from './context/ApiContext'
 import {AuthContextProvider} from './context/AuthContext'
 
 import {UserView} from './components/Dashboard/Users'
+import {GuaranteeView} from './components/Dashboard/Guarantee'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
   {
     path: "/users",
     element: <UserView />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: "/guarantee",
+    element: <GuaranteeView />,
     errorElement: <NotFound />,
   },
 ]);

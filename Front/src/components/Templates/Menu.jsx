@@ -1,12 +1,13 @@
 
 import React from 'react';
 
+
 export function NavBar(){
     return (
         <div className="sideNav">
             
             <ul>
-                <li>Logo</li>
+                <li><img src='src\assets\images\logo.png'></img></li>
                 <li><a href='/home'>Home</a></li>
                 <li><a href='/users'>Usuarios</a></li>
                 <li><a href='/guarantee'>Garantias</a></li>
@@ -38,6 +39,29 @@ export function UserManagementMenu({SetTagMenu}){
                 <li onClick={() => SetTagMenu("create_user")}>Gestion De usuario</li>
                 <li onClick={() => SetTagMenu("search_user")}>Busqueda por filtro</li>
                 <li onClick={() => SetTagMenu("list_user")}>Listar Usuarios</li>
+            </ul>
+        </>
+    )
+}
+
+export function BanManagementMenu({SetTagBan}){
+    return (
+        <>
+            <ul>
+                <li onClick={() => SetTagBan("list_ban")}>Lista de Bloqueos</li>
+                <li onClick={() => SetTagBan("create_ban")}>Crear Bloqueo</li>
+            </ul>
+        </>
+    )
+}
+
+export function GuaranteeBanMenu({SetTagGuarantee}){
+    return(
+        <>
+            <ul>
+                <li onClick={() => SetTagBan("register_guarantee")}>Registro</li>
+                <li onClick={() => SetTagBan("search_guarantee")}>Consulta de Garantía</li>
+                <li onClick={() => SetTagBan("files_guarantee")}>Archivos de Reclamación</li>
             </ul>
         </>
     )

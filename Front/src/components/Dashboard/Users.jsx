@@ -1,6 +1,8 @@
 import {UserNavBar, NavBar} from '../Templates/Menu'
 import {useState, useEffect} from 'react'
 import {MyProfile} from './UsersViews/Profile'
+import {Roles} from './UsersViews/Roles'
+import {BanManagement} from './UsersViews/BanManagement'
 import {UserManagement} from './UsersViews/UserManagement'
 
 export function UserView(){
@@ -19,8 +21,8 @@ export function UserView(){
                 <UserNavBar SetWindowActive={SetWindowActive}/>
                 {windowActive === "profile" ? <MyProfile /> : <></>}
                 {windowActive === "users" ? <UserManagement /> : <></>}
-                {windowActive === "roles" ? <p>{user}</p> : <></>}
-                {windowActive === "ban" ? <p>Bloqueos</p> : <></>}
+                {windowActive === "roles" ? <Roles /> : <></>}
+                {windowActive === "ban" ? <BanManagement /> : <></>}
                
             </>
         )
