@@ -37,7 +37,7 @@ export function FormLogin(){
                 localStorage.setItem('token', LoginResponse.token);
                 localStorage.setItem('user', UserLogin);            
                 localStorage.setItem('csrfToken', LoginResponse.csrfToken); 
-                navigate("/dashboard");
+                navigate("/home");
            }else{
                 alert(LoginResponse.message);
            }
@@ -64,7 +64,7 @@ export function FormLogin(){
             </form>
         </>
     );}else{
-         window.location.replace('/dashboard');
+         window.location.replace('/home');
        
     } 
     

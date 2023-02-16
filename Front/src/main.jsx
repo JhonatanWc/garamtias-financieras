@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {FormLogin} from './components/Login/LoginForm'
-import {Dashboard} from './components/Dashboard/Dashboard'
+import {Home} from './components/Dashboard/Home'
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 import {NotFound} from './context/ApiContext'
 import {AuthContextProvider} from './context/AuthContext'
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />,
+    path: "/home",
+    element: <Home />,
     errorElement: <NotFound />,
   },
   {

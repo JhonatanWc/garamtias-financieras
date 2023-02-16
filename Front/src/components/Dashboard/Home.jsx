@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import {NavBar} from '../Templates/Menu'
 
 
-export function Dashboard(){
+export function Home(){
     
     const navigate = useNavigate();
     const {loginData} = useContext(AuthContext)   

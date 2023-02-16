@@ -11,15 +11,21 @@ export function UserView(){
         SetWindowActive('profile');
     }, []);
 
-    return (
-        <>
-            <NavBar />
-            <UserNavBar SetWindowActive={SetWindowActive}/>
-            {windowActive === "profile" ? <MyProfile /> : <></>}
-            {windowActive === "users" ? <UserManagement /> : <></>}
-            {windowActive === "roles" ? <p>roles</p> : <></>}
-            {windowActive === "ban" ? <p>Bloqueos</p> : <></>}
-           
-        </>
-    )
+    const user = localStorage.getItem('user');
+    if(user !== null){
+        return (
+            <>
+                <NavBar />
+                <UserNavBar SetWindowActive={SetWindowActive}/>
+                {windowActive === "profile" ? <MyProfile /> : <></>}
+                {windowActive === "users" ? <UserManagement /> : <></>}
+                {windowActive === "roles" ? <p>{user}</p> : <></>}
+                {windowActive === "ban" ? <p>Bloqueos</p> : <></>}
+               
+            </>
+        )
+    }else{
+        window.location.replace('/login');
+    }
+   
 }
