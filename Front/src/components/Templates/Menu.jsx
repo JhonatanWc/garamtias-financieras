@@ -55,13 +55,28 @@ export function BanManagementMenu({SetTagBan}){
     )
 }
 
-export function GuaranteeBanMenu({SetTagGuarantee}){
+export function GuaranteeBanMenu({SetWindowActive}){
     return(
         <>
             <ul>
-                <li onClick={() => SetTagBan("register_guarantee")}>Registro</li>
-                <li onClick={() => SetTagBan("search_guarantee")}>Consulta de Garantía</li>
-                <li onClick={() => SetTagBan("files_guarantee")}>Archivos de Reclamación</li>
+                <li onClick={() => SetWindowActive("register_guarantee")}>Registro</li>
+                <li onClick={() => SetWindowActive("search_guarantee")}>Consulta de Garantía</li>
+                <li onClick={() => SetWindowActive("files_guarantee")}>Archivos de Reclamación</li>
+            </ul>
+        </>
+    )
+}
+
+export function GuaranteeSearchMenu(){
+    return (
+        <>
+            <ul>
+                <li>Registros</li>
+                <li>Actualizaciones</li>
+                <li>Reclamaciones</li>
+                <li>Abonos por recuperación</li>
+                <li>Devolución</li>
+                <li>Pagos por reclamación</li>
             </ul>
         </>
     )

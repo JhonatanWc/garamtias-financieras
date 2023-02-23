@@ -1,6 +1,7 @@
 import {GuaranteeBanMenu, NavBar} from '../Templates/Menu'
 import {useState, useEffect} from 'react'
 import {RegisterGuarantee} from './GuaranteeViews/RegisterGuarantee'
+import {SearchGuarantee} from './GuaranteeViews/SearchGuarantee'
 
 export function GuaranteeView(){
 
@@ -15,10 +16,10 @@ export function GuaranteeView(){
     return (
         <>
             <NavBar/>
-            <GuaranteeBanMenu/>
+            <GuaranteeBanMenu SetWindowActive={SetWindowActive}/>
             {windowActive === "register_guarantee" ? <RegisterGuarantee/>  : <></>}
-            {windowActive === "search_guarantee" ? <p></p> : <></>}
-            {windowActive === "files_guarantee" ? <p></p> : <></>}
+            {windowActive === "search_guarantee" ? <SearchGuarantee/> : <></>}
+            {windowActive === "files_guarantee" ? <p> s</p> : <></>}
             
 
 
