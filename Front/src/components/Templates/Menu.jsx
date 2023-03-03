@@ -4,25 +4,51 @@ import React from 'react';
 
 export function NavBar(){
     return (
-        <div className="sideNav">
-            
-            <ul>
-                <li><img src='src\assets\images\logo.png'></img></li>
-                <li><a href='/home'>Home</a></li>
-                <li><a href='/users'>Usuarios</a></li>
-                <li><a href='/guarantee'>Garantias</a></li>
-                <li><a href='/reports'>Informes</a></li>
-                <li><a href='/processes'>Procesos</a></li>
-                <li><a href='/wallet'>Cartera</a></li>
+            <ul className="lists__items">
+                <li className="active">
+                    <a href='/home'>
+                        <div className="container__icon"><span className="wcicon outlined">home</span></div>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href='/users'>
+                        <div className="container__icon"><span className="wcicon outlined">person</span></div>
+                        Usuarios
+                    </a>
+                </li>
+                <li>
+                    <a href='/guarantee'>
+                        <div className="container__icon"><span className="wcicon outlined">settings</span></div>
+                        Garantías
+                    </a>
+                </li>
+                <li>
+                    <a href='/reports'>
+                        <div className="container__icon"><span className="wcicon outlined">assessment</span></div>
+                        Informes
+                    </a>
+                </li>
+                <li>
+                    <a href='/processes'>
+                        <div className="container__icon"><span className="wcicon outlined">settings</span></div>
+                        Procesos
+                    </a>
+                </li>
+                <li>
+                    <a href='/wallet'>
+                        <div className="container__icon"><span className="wcicon outlined">monetization_on</span></div>
+                        Cartera
+                    </a>
+                </li>
             </ul>
-        </div>
     )
 }
 
 export function UserNavBar({SetWindowActive}){
     return (
         <>
-            <ul>
+            <ul className="lists__items">
                 <li onClick={() => SetWindowActive("profile")}>Editar mi perfil</li>
                 <li onClick={() => SetWindowActive("users")}>Gestion de Usuarios</li>
                 <li onClick={() => SetWindowActive("roles")}>Roles</li>
@@ -35,7 +61,7 @@ export function UserNavBar({SetWindowActive}){
 export function UserManagementMenu({SetTagMenu}){
     return (
         <>
-            <ul>
+            <ul className="lists__items">
                 <li onClick={() => SetTagMenu("create_user")}>Gestion De usuario</li>
                 <li onClick={() => SetTagMenu("search_user")}>Busqueda por filtro</li>
                 <li onClick={() => SetTagMenu("list_user")}>Listar Usuarios</li>
@@ -58,7 +84,7 @@ export function BanManagementMenu({SetTagBan}){
 export function GuaranteeBanMenu({SetWindowActive}){
     return(
         <>
-            <ul>
+            <ul className="lists__items">
                 <li onClick={() => SetWindowActive("register_guarantee")}>Registro</li>
                 <li onClick={() => SetWindowActive("search_guarantee")}>Consulta de Garantía</li>
                 <li onClick={() => SetWindowActive("files_guarantee")}>Archivos de Reclamación</li>
@@ -70,7 +96,7 @@ export function GuaranteeBanMenu({SetWindowActive}){
 export function GuaranteeSearchMenu(){
     return (
         <>
-            <ul>
+            <ul className="lists__items">
                 <li>Registros</li>
                 <li>Actualizaciones</li>
                 <li>Reclamaciones</li>

@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+:root{
+	--main-color-primary:#011C40;
+}
+
+@media screen and (min-width:0px){
+	/* MAIN */
+	body{background:#f5f5f5;}
+	*,
+	html,
+    p,
+    a,
+    label,
+    input,
+    button,
+    textarea,
+    select{font-family:'Lato', 'Poppins', Arial;}
+	.wcbtn{font-weight:bold;}
+	a.wcbtn.btn-border,
+	button.wcbtn.btn-border{background:transparent; color:#353535 !important; border:0.1rem solid #B8BCD3;}
+	a.wcbtn.btn-border-red,
+	button.wcbtn.btn-border-red{background:transparent; color:var(--main-color-primary) !important; border:0.1rem solid var(--main-color-primary);}
+	a.wcbtn.btn-primary,
+	button.wcbtn.btn-primary{background:var(--main-color-primary);}
+	a.wcbtn:hover,
+	input.wcbtn:hover,
+	button:hover{transform:scale(1.05);}
+	.blue{color:var(--main-color-primary) !important;}
+	h1, h2, h3, h4, h5, h6{font-family:'Lato', 'Poppins', Arial; font-weight:600;}
+	#main__wrapper{padding:5rem 1rem;}
+	#main__wrapper form .wcrow > *{padding:0.5rem 0;}
+
+	/* LOGIN */
+	#main__wrapper.login{position:relative; height:100vh; display:flex; flex-wrap:wrap; justify-content:center; align-items:center;}
+	#main__wrapper.login .container__row{background:#fff; width:100%; max-width:45rem; padding:2rem; border-radius:0.5rem; text-align:center;}
+
+	/*************************************** DASHBOARD ***************************************/
+	/* MAIN */
+	#main__wrapper .wcrow.actions > *{display:flex; flex-wrap:wrap; align-items:center;}
+	#main__wrapper .wcrow.actions > * *:last-child{margin-left:auto;}
+
+	/* SIDEBAR */
+	#sidebar{background:url("../../images/background-sidebar.png") no-repeat center 0 var(--main-color-primary); position:fixed; width:30rem; height:100%; top:0; left:-200%; padding:2rem;}
+	#sidebar *{color:#fff;}
+	#sidebar .container__logo{margin:2rem 0;}
+	#sidebar .container__logo img{filter: brightness(0) invert(1);}
+	#sidebar nav#nav__sidebar ul.lists__items{}
+	#sidebar nav#nav__sidebar li{display:block;}
+	#sidebar nav#nav__sidebar li a,
+	#sidebar nav#nav__sidebar li button{display:flex; flex-wrap:wrap; align-items:center; padding:1rem 2rem;}
+	#sidebar nav#nav__sidebar li * .container__icon{width:3rem; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; text-align:center; margin-right:0.5rem;}
+	#sidebar nav#nav__sidebar li * .container__icon .wcicon{font-size:2.5rem;}
+	#sidebar nav#nav__sidebar li.active a{background:linear-gradient(91.14deg, #323AD9 3.09%, #1119C7 98.33%); border-radius: 5px;}
+	#sidebar nav#nav__sidebar hr{background:rgba(255, 255, 255, 0.5); height:0.1rem; margin:1rem 0; border:0;}
+
+	/* HEADER */
+	#header{background:#fff; width:100%;  padding:1rem;}
+	#header .container__row-fullwidth{display:flex; flex-wrap:wrap; align-items:center;}
+	#header .container__logo img{max-width:15rem;}
+	#header .container__right{display:inline-block; margin-left:auto;}
+	#header .container__right a.user{display:flex !important; flex-wrap:wrap; align-items:center;}
+	#header .container__right a.user > .wcicon{margin-left:0.2rem; font-size:1.8rem;}
+	#header .container__right a.user ul.sub-menu{background:#fff; position:absolute; width:25rem; height:0; top:4rem; right:0; visibility:hidden; opacity:0; transition:all .4s ease;}
+	#header .container__right a.user:hover ul.sub-menu{height:auto; visibility:visible; opacity:1;}
+	#header .container__right a.user ul.sub-menu *{font-size:1.4rem;}
+	#header .container__right a.user ul.sub-menu li{display:block; padding:1rem 2rem; border-bottom:0.1rem solid rgba(0, 0, 0, 0.05);}
+	#header .container__right a.user ul.sub-menu li:last-child{border-bottom:0;}
+	#header .container__right a.user ul.sub-menu li a{display:block;}
+	#header .container__right a.user ul.sub-menu li a.wcicon{margin-right:0.5rem;}
+
+	/* MAIN WRAPPER GLOBAL */
+	#main__wrapper.dashboard{width:100%; padding:2rem;}
+	#main__wrapper.dashboard #container__content #container__content-search,
+	#main__wrapper.dashboard #container__content #container__content-content{background:#fff; padding:2rem; border-radius:0.5rem;}
+	#main__wrapper.dashboard #container__content #container__content-content{margin:2rem 0;}
+	/*************************************** DASHBOARD ***************************************/
+}
+@media screen and (min-width:768px){
+
+}
+@media screen and (min-width:1024px){
+
+	/* LOGIN */
+	#main__wrapper.login .container__row{padding:3rem;}
+
+	/*************************************** DASHBOARD ***************************************/
+	/* SIDEBAR */
+	#sidebar{top:0; left:0;}
+	#sidebar .container__logo{margin:4rem 0;}
+
+	/* MAIN WRAPPER GLOBAL */
+	#header{width:calc(100% - 30rem); margin-left:30rem;}
+	#main__wrapper.dashboard{width:calc(100% - 30rem); margin-left:30rem; padding:4rem;}
+	/*************************************** DASHBOARD ***************************************/
+}
+@media screen and (min-width:1300px){
+	
+}
+@media screen and (min-width:1370px){
+	
+}
