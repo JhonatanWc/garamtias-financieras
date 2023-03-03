@@ -50,18 +50,28 @@ export function FormLogin(){
     if(user === null || user === undefined ){
     return(
         <>
-           
-            <form onSubmit={SubmitLoginForm}>
-                <div>
-                    <div><label>Email login </label></div>
-                    <div><input type="text" placeholder='Correo de inicio de session' onChange={(e) => {SetUserLogin(e.target.value)}} value={UserLogin}/></div>
+            <div id="main__wrapper" className='login'>
+                <div className="container__row">
+                    <form onSubmit={SubmitLoginForm}>
+                        <div className="container__logo">
+                            <img src="./src/assets/images/logo.png" alt="Logo" />
+                        </div>
+                        <div className='wcrow'>
+                            <div className="wccol-sm-12 wccol-md12">
+                                <label>Correo electrónico</label>
+                                <input type="text" placeholder='Correo electrónico' onChange={(e) => {SetUserLogin(e.target.value)}} value={UserLogin}/>
+                            </div>
+                        </div>
+                        <div className='wcrow'>
+                            <div className="wccol-sm-12 wccol-md12">
+                                <label>Contraseña</label>
+                                <input type="password" placeholder='Contraseña' onChange={(e) => {SetUserPassword(e.target.value)}} value={UserPassword}/>
+                            </div>
+                        </div>
+                        <button className='wcbtn btn-primary btn-lg btn-block'>Iniciar sesión</button>
+                    </form>
                 </div>
-                <div>
-                    <div><label>Contraseña</label></div>
-                    <div><input type="password" placeholder='contraseña de inicio de session' onChange={(e) => {SetUserPassword(e.target.value)}} value={UserPassword}/></div>
-                </div>
-                <button>iniciar seccion</button>
-            </form>
+            </div>  
         </>
     );}else{
          window.location.replace('/home');
