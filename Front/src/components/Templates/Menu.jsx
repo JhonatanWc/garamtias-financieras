@@ -2,40 +2,46 @@
 import React from 'react';
 
 
-export function NavBar(){
+export function NavBar({setActive}){
+    const home = (setActive === "home")? 'active' : ''
+    const users = (setActive === "users")? 'active' : ''
+    const guarantee = (setActive === "guarantee")? 'active' : ''
+    const reports = (setActive === "reports")? 'active' : ''
+    const processes = (setActive === "processes")? 'active' : ''
+    const wallet = (setActive === "wallet")? 'active' : ''
     return (
             <ul className="lists__items">
-                <li className="active">
+                <li className={home}>
                     <a href='/home'>
-                        <div className="container__icon"><span className="wcicon outlined">home</span></div>
+                        <div className="container__icon"><span className="wcicon outlined">home </span></div>
                         Home
                     </a>
                 </li>
-                <li>
+                <li className={users}>
                     <a href='/users'>
                         <div className="container__icon"><span className="wcicon outlined">person</span></div>
                         Usuarios
                     </a>
                 </li>
-                <li>
+                <li className={guarantee}>
                     <a href='/guarantee'>
                         <div className="container__icon"><span className="wcicon outlined">settings</span></div>
                         Garantías
                     </a>
                 </li>
-                <li>
+                <li className={reports}>
                     <a href='/reports'>
                         <div className="container__icon"><span className="wcicon outlined">assessment</span></div>
                         Informes
                     </a>
                 </li>
-                <li>
+                <li className={processes}>
                     <a href='/processes'>
                         <div className="container__icon"><span className="wcicon outlined">settings</span></div>
                         Procesos
                     </a>
                 </li>
-                <li>
+                <li className={wallet}>
                     <a href='/wallet'>
                         <div className="container__icon"><span className="wcicon outlined">monetization_on</span></div>
                         Cartera

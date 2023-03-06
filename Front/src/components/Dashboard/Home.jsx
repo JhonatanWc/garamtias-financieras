@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import {NavBar} from '../Templates/Menu';
 
+import Swal from 'sweetalert2'
+
 export function Home(){
     const navigate = useNavigate();
     const {loginData} = useContext(AuthContext);
@@ -42,15 +44,26 @@ export function Home(){
 
     async function SubmitLogout(e){
         e.preventDefault()
-        axios.post(urlLogout,data,{
-            headers:headers
-        }).then(res => {
-            console.log(res.data)
-            localStorage.clear();
-            navigate("/login");
-        }).catch(error =>{
-            console.log(error)
-        });
+      
+        Swal.fire({
+            title: 'Atencion!',
+            text: 'Estas apunto de terminar tu session, deseas continuar?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Continuar',    
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(urlLogout,data,{
+                    headers:headers
+                }).then(res => {
+                    console.log(res.data)
+                    localStorage.clear();
+                    navigate("/login");
+                }).catch(error =>{
+                    console.log(error)
+                });
+            }
+        })
     }
    
     const user = localStorage.getItem('user');
@@ -63,7 +76,7 @@ export function Home(){
                             <img src="./src/assets/images/logo.png" alt="Logo" />
                         </div>
                         <nav id="nav__sidebar">
-                            <NavBar />
+                            <NavBar setActive={"home"}/>
                             <li>
                                 <form onSubmit={SubmitMyProfile}>
                                     <button className="wcbtn btn-simple">

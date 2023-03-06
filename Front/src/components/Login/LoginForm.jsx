@@ -3,7 +3,7 @@ import {getApiUrl} from '../../context/ApiContext'
 import {AuthContext} from '../../context/AuthContext'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
+import Swal from 'sweetalert2'
 
 export function FormLogin(){
 
@@ -23,25 +23,36 @@ export function FormLogin(){
 
     const SubmitLoginForm = (e) => {
         e.preventDefault()
+
         axios.get(urlLogin, {
             params: {
                 'user_login': UserLogin,
                 'user_password': UserPassword,
             }
-          }).then(res => {
-            const persons = res.data;
+        })
+        .then((getResponse) => {
+          
+        //   console.log(getResponse.data);
+            const persons = getResponse.data;
             SetLoginResponse(persons);
-            console.log(LoginResponse);
-            
-            if(LoginResponse.status == 200){
+            // console.log(LoginResponse);
+           
+            if(persons.status == 200){
                 localStorage.setItem('token', LoginResponse.token);
                 localStorage.setItem('user', UserLogin);            
                 localStorage.setItem('csrfToken', LoginResponse.csrfToken); 
                 navigate("/home");
            }else{
-                alert(LoginResponse.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: persons.message,
+               
+            })
            }
         })
+
+        
     }
 
     

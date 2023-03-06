@@ -77,11 +77,18 @@ class LoginController extends Controller
         ->where('user_password', '=', md5($user_password))
         ->get();
 
-        if(!isset($login_susses[0])){
+        if($user_login == "" && $user_password == ""){
+            return response([
+                'message' => 'No fields',  
+                'status' => "204",
+            ]);
+        }else if(!isset($login_susses[0])){
             return response([
                 'message' => 'invalid credentials',  
-            ], status:Response::HTTP_UNAUTHORIZED);
-        }else{
+                'status' => "203",
+            ]);
+        }
+        else{
             $user =   Auth::loginUsingId($login_susses[0]->id);
 
             $token = $user->createToken('token')->plainTextToken;

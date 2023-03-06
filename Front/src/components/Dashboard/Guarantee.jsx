@@ -24,7 +24,7 @@ export function GuaranteeView(){
                         <img src="./src/assets/images/logo.png" alt="Logo" />
                     </div>
                     <nav id="nav__sidebar">
-                        <NavBar />
+                        <NavBar  setActive={"guarantee"}/>
                         <li>
                             
                         </li>

@@ -23,7 +23,7 @@ export function UserView(){
                             <img src="./src/assets/images/logo.png" alt="Logo" />
                         </div>
                         <nav id="nav__sidebar">
-                            <NavBar />
+                            <NavBar  setActive={"users"}/>
                             <li>
                                 
                             </li>
