@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getApiUrl } from "../../context/ApiContext";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 
 export function FormLogin() {
@@ -92,4 +92,5 @@ export function FormLogin() {
   } else {
     window.location.replace("/home");
   }
+  console.log("🚀 ~ file: LoginForm.jsx:95 ~ FormLogin ~ input:", input);
 }
