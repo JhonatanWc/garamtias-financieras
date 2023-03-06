@@ -245,6 +245,11 @@ class LoginController extends Controller
         }
     }
 
+    public function resendToken(Request $request)
+    {
+        # code...
+    }
+
     public function AuthUser()
     {
         return Auth::user();
