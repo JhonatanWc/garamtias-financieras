@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\people;
 use App\Models\login;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\loginTokenMail;
+
 
 use Illuminate\Support\Facades\Cookie;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,15 +95,45 @@ class LoginController extends Controller
                         'status' => "203",
                     ]);
                 }else{
-                    $user =   Auth::loginUsingId($login[0]->id);
-                    $from_token = $user->createToken('token')->plainTextToken;
-                    $cookie = cookie('jwt',$from_token,60*24); // 1 day
-        
-                    return response([
-                        'message' => 'success',
-                        'status' => "200",
-                        'token' => $from_token
-                    ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
+
+                    $login_data = login::find($login[0]->id);
+                    if($login_data->active == 1){
+                        $user =  Auth::loginUsingId($login[0]->id);
+                        $from_token = $user->createToken('token')->plainTextToken;
+                        $cookie = cookie('jwt',$from_token,60*24); // 1 day
+                        
+                        $characters = '0123456789';
+                        $charactersLength = strlen($characters);
+                        $token = '';
+
+                        for ($i = 0; $i < 6; $i++) {
+                            $token .= $characters[rand(0, $charactersLength - 1)];
+                        }
+
+                        $details = [
+                            'token' => $token,
+                        ];
+                    
+                        $login_data = login::find($login[0]->id);
+                        $login_data->token = $token;
+                        $login_data->ip = $_SERVER['REMOTE_ADDR'];;
+                        $login_data->last_login = date('Y-m-d');
+                        $login_data->save();
+
+                        Mail::to($user_email)->send(new loginTokenMail($details));
+                    
+            
+                        return response([
+                            'message' => 'success',
+                            'status' => "200",
+                            'token' => $from_token
+                        ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
+                    }else{
+                        return response([
+                            'message' => 'block user',  
+                            'status' => "403",
+                        ]);   
+                    }                    
                 }   
             }else{
                 return response([

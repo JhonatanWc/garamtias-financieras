@@ -17,5 +17,11 @@ class PersonSeeder extends Seeder
             'names' => 'Jhonatan Alexander',
             'email' => 'jhonatanpereanez@gmail.com',
         ]);
+
+        people::create([
+            'document' => '1013364343',
+            'names' => 'Leon mira',
+            'email' => 'leonelmirawc@gmail.com',
+        ]);
     }
 }
