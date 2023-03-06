@@ -18,9 +18,9 @@ class LoginSeeder extends Seeder
     public function run()
     {
         login::create([
-            'user_login' => 'jhonatanpereanez@gmail.com',
-            'user_password' => md5('12345'),
-            'user_id' => 1,
+            'person_id' => 1,
+            'password' => md5('12345'),
+            'rol_id' => 1,
         ]);
         
     }

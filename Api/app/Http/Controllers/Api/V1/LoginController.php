@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
 
+use App\Models\people;
 use App\Models\login;
+
+
 use Illuminate\Support\Facades\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -69,43 +72,87 @@ class LoginController extends Controller
 
     public function requestLogin(Request $request)
     {
+        $user_email = $request->post("user_email");
+        $user_password = md5($request->post('user_password'));
 
-        $user_login = $request->user_login;
-        $user_password = $request->user_password;
+        $validate = false;
 
-        $login_susses = login::where('user_login', '=', $user_login)
-        ->where('user_password', '=', md5($user_password))
-        ->get();
+        if($user_email != "" && $user_password != "") $validate = true;
 
-        if($user_login == "" && $user_password == ""){
+        if($validate){
+            $people = people::where('email', '=', $user_email)->get();
+
+            if(isset($people[0])){
+                $login = login::where('person_id', '=', $people[0]->id)
+                ->where('password', '=', $user_password)
+                ->get();
+                if(!isset($login[0])){
+                    return response([
+                        'message' => 'invalid credentials',  
+                        'status' => "203",
+                    ]);
+                }else{
+                    $user =   Auth::loginUsingId($login[0]->id);
+                    $from_token = $user->createToken('token')->plainTextToken;
+                    $cookie = cookie('jwt',$from_token,60*24); // 1 day
+        
+                    return response([
+                        'message' => 'success',
+                        'status' => "200",
+                        'token' => $from_token
+                    ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
+                }   
+            }else{
+                return response([
+                    'message' => 'invalid credentials',  
+                    'status' => "203",
+                ]);
+            }
+
+        }else{
             return response([
                 'message' => 'No fields',  
                 'status' => "204",
             ]);
-        }else if(!isset($login_susses[0])){
-            return response([
-                'message' => 'invalid credentials',  
-                'status' => "203",
-            ]);
         }
-        else{
-            $user =   Auth::loginUsingId($login_susses[0]->id);
+       
 
-            $token = $user->createToken('token')->plainTextToken;
-            $cookie = cookie('jwt',$token,60*24); // 1 day
+        // $user_login = $request->user_login;
+        // $user_password = $request->user_password;
 
-            return response([
-                'message' => 'success',
-                'status' => "200",
-                'token' => $token
-            ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
-        }     
+        // $login_susses = login::where('user_login', '=', $user_login)
+        // ->where('user_password', '=', md5($user_password))
+        // ->get();
+
+        // if($user_login == "" && $user_password == ""){
+            // return response([
+            //     'message' => 'No fields',  
+            //     'status' => "204",
+            // ]);
+        // }else if(!isset($login_susses[0])){
+            // return response([
+            //     'message' => 'invalid credentials',  
+            //     'status' => "203",
+            // ]);
+        // }
+        // else{
+        //     $user =   Auth::loginUsingId($login_susses[0]->id);
+
+        //     $token = $user->createToken('token')->plainTextToken;
+        //     $cookie = cookie('jwt',$token,60*24); // 1 day
+
+        //     return response([
+        //         'message' => 'success',
+        //         'status' => "200",
+        //         'token' => $token
+        //     ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
+        // }     
    
     }
 
     public function AuthUser()
     {
-        return Auth::user();
+        // return Auth::user();
     }
 
     public function logout()

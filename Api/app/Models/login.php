@@ -11,8 +11,15 @@ class login extends Model
     use HasFactory, HasApiTokens;
     
     protected $fillable = [
-        'user_login',
-        'user_password',
-        'user_id'
+        'person_id',
+        'menu',
+        'password',
+        'password_recovery',
+        'token',
+        'active',
+        'ip',
+        'last_login',
+        'additional_permissions',
+        'rol_id',
     ];
 }

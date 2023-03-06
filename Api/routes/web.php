@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\V1\LoginController;
 use Illuminate\Support\Facades\Auth;
 
 Route::apiResource('v1/login', LoginController::class);
-Route::get('v1/login', [LoginController::class,'requestLogin']);
+Route::post('v1/login', [LoginController::class,'requestLogin']);
 // Route::group(['middleware' => ['auth']], function () {
     // Route::get('v1/myProfile', [LoginController::class,'AuthUser']);
     // Route::get('v1/logout', [LoginController::class,'logout']);
