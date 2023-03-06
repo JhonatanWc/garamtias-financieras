@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 use App\Models\people;
 use App\Models\login;
 
-use Illuminate\Support\Facades\Mail;
 use App\Mail\loginTokenMail;
+use App\Mail\forgotPasswordEmailMail;
 
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -98,9 +100,6 @@ class LoginController extends Controller
 
                     $login_data = login::find($login[0]->id);
                     if($login_data->active == 1){
-                        $user =  Auth::loginUsingId($login[0]->id);
-                        $from_token = $user->createToken('token')->plainTextToken;
-                        $cookie = cookie('jwt',$from_token,60*24); // 1 day
                         
                         $characters = '0123456789';
                         $charactersLength = strlen($characters);
@@ -122,12 +121,14 @@ class LoginController extends Controller
 
                         Mail::to($user_email)->send(new loginTokenMail($details));
                     
-            
-                        return response([
-                            'message' => 'success',
-                            'status' => "200",
-                            'token' => $from_token
-                        ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
+                        // $user =  Auth::loginUsingId($login[0]->id);
+                        // $from_token = $user->createToken('token')->plainTextToken;
+                        // $cookie = cookie('jwt',$from_token,60*24);
+                        // return response([
+                        //     'message' => 'success',
+                        //     'status' => "200",
+                        //     'token' => $from_token
+                        // ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
                     }else{
                         return response([
                             'message' => 'block user',  
@@ -144,53 +145,113 @@ class LoginController extends Controller
 
         }else{
             return response([
+                'message' => 'Any fields are empty',  
+                'status' => "204",
+            ]);
+        }
+         
+   
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $user_email = $request->post("user_email");
+        $validate = false;
+
+        if($user_email != "") $validate = true;
+        if($validate){
+            $people = people::where('email', '=', $user_email)->get();
+
+            if(isset($people[0])){
+                $login = login::where('person_id', '=', $people[0]->id)
+                ->get();
+
+                if(isset($login[0])){
+                    $token_recovery = Str::random(50);
+                    $login_data = login::find($login[0]->id);
+                    $login_data->password_recovery = $token_recovery;
+                    $login_data->save();
+
+                    $details = [
+                        'correo' => $user_email,
+                        'token' => $token_recovery,
+                    ];
+
+                    Mail::to($user_email)->send(new forgotPasswordEmailMail($details));
+                    return response([
+                        'message' => 'Email Send',  
+                        'status' => "200",
+                    ]);
+                }
+            }else{
+                return response([
+                    'message' => 'invalid credentials',  
+                    'status' => "203",
+                ]);
+            }
+            
+
+        }else{
+            return response([
                 'message' => 'No fields',  
                 'status' => "204",
             ]);
         }
-       
+    }
 
-        // $user_login = $request->user_login;
-        // $user_password = $request->user_password;
+    public function recoveryPassword(Request $request)
+    {
+        $user_email = $request->post("user_email");
+        $user_password = $request->post("user_password");
+        $user_token = $request->post("user_token");
 
-        // $login_susses = login::where('user_login', '=', $user_login)
-        // ->where('user_password', '=', md5($user_password))
-        // ->get();
+        $validate = false;
+        if($user_email != "" &&  $user_password != "" && $user_token != "")$validate = true;
+        if($validate){
+            $people = people::where('email', '=', $user_email)->get();
 
-        // if($user_login == "" && $user_password == ""){
-            // return response([
-            //     'message' => 'No fields',  
-            //     'status' => "204",
-            // ]);
-        // }else if(!isset($login_susses[0])){
-            // return response([
-            //     'message' => 'invalid credentials',  
-            //     'status' => "203",
-            // ]);
-        // }
-        // else{
-        //     $user =   Auth::loginUsingId($login_susses[0]->id);
+            if(isset($people[0])){
+                $login = login::where('person_id', '=', $people[0]->id)
+                ->where('password_recovery', '=', $user_token)
+                ->get();
 
-        //     $token = $user->createToken('token')->plainTextToken;
-        //     $cookie = cookie('jwt',$token,60*24); // 1 day
+                if(isset($login[0])){
+                    $login_data = login::find($login[0]->id);
+                    $login_data->password_recovery = null;
+                    $login_data->password = md5($user_password);
+                    $login_data->save();
 
-        //     return response([
-        //         'message' => 'success',
-        //         'status' => "200",
-        //         'token' => $token
-        //     ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
-        // }     
-   
+                    return response([
+                        'message' => 'Password change',  
+                        'status' => "200",
+                    ]);
+                }else{
+                    return response([
+                        'message' => 'invalid credentials',  
+                        'status' => "203",
+                    ]);
+                }
+            }else{
+                return response([
+                    'message' => 'invalid credentials',  
+                    'status' => "203",
+                ]);
+            }
+        }else{
+            return response([
+                'message' => 'Any fields are empty',  
+                'status' => "204",
+            ]);
+        }
     }
 
     public function AuthUser()
     {
-        // return Auth::user();
+        return Auth::user();
     }
 
     public function logout()
     {
-      
         session()->flush();
         $cookie = Cookie::forget('jwt');
         return response([
