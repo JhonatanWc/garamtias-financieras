@@ -19,14 +19,14 @@ class LoginSeeder extends Seeder
     {
         login::create([
             'person_id' => 1,
-            'password' => md5('12345'),
+            'password' => md5('123'),
             'rol_id' => 1,
             'active' => 1,
         ]);
 
         login::create([
             'person_id' => 2,
-            'password' => md5('12345'),
+            'password' => md5('123'),
             'rol_id' => 1,
             'active' => 1,
         ]);

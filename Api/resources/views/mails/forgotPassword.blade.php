@@ -15,7 +15,7 @@
 				<td style="margin:0; padding:50px; line-height:0; text-align:center;">
 						<p style="margin:0; padding:0; font-family:Poppins, sans-serif; font-size:16px; color:#3D5553; line-height:21px;">Bienvenido {{$details['correo']}}</p>
 						<p style="margin:0; padding:0; font-family:Poppins, sans-serif; font-size:16px; color:#3D5553; line-height:21px;">Para recuperar tu contraseña, debes de hacer click en el siguiente enlace</p>
-						<p style="margin:0; padding:0; font-family:Poppins, sans-serif; font-size:16px; color:#3D5553; line-height:21px;"><a href="{{env('APP_API_URL')}}/recovery-password?token={{$details['token']}}&email={{$details['correo']}}">recuperar tu contraseña</a></p>
+						<p style="margin:0; padding:0; font-family:Poppins, sans-serif; font-size:16px; color:#3D5553; line-height:21px;"><a href="{{env('APP_API_URL')}}/change-password?token={{$details['token']}}&email={{$details['correo']}}">recuperar tu contraseña</a></p>
 					</td>
 				</tr>
 			</table>

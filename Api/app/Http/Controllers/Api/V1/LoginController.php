@@ -246,37 +246,36 @@ class LoginController extends Controller
 
     public function resendToken(Request $request)
     {
-        $user_email = $request->post("user_email");
-        $validate = false;
-        if($user_email != "") $validate = true;
-        if($validate){
-            $people = people::where('email', '=', $user_email)->get();
-            if(isset($people[0])){
-                $login = login::where('person_id', '=', $people[0]->id)
-                ->get();
-                $characters = '0123456789';
-                $charactersLength = strlen($characters);
-                $token = '';
+        $person_id = $request->post('person_id');
+        $login_id = $request->post('login_id');
+        $login_data = login::find($login_id);
+        $person_data = people::find($person_id);
 
-                for ($i = 0; $i < 6; $i++) {
-                    $token .= $characters[rand(0, $charactersLength - 1)];
-                }
-
-                $details = [
-                    'token' => $token,
-                ];
-
-                $login_data = login::find($login[0]->id);
-                $login_data->token = $token;
-                $login_data->save();
-                Mail::to($user_email)->send(new loginTokenMail($details));
-                return response([
-                    'message' => 'Token Resend',  
-                    'status' => "200",
-                ]);
-            }else{
-
+        if(!is_null($login_data) && !is_null($person_data)){
+            $characters = '0123456789';
+            $charactersLength = strlen($characters);
+            $token = '';
+    
+            for ($i = 0; $i < 6; $i++) {
+                $token .= $characters[rand(0, $charactersLength - 1)];
             }
+    
+            $details = [
+                'token' => $token,
+            ];
+    
+            $login_data->token = $token;
+            $login_data->save();
+            Mail::to($person_data->email)->send(new loginTokenMail($details));
+            return response([
+                'message' => 'Token Resend',  
+                'status' => "200",
+            ]);
+        }else{
+            return response([
+                'message' => 'invalid credentials',  
+                'status' => "203",
+            ]);
         }
     }
 
