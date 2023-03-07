@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getApiUrl } from "../../context/ApiContext";
 import { AuthContext } from "../../context/AuthContext";
 import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
@@ -34,7 +34,7 @@ export function FormLogin() {
           localStorage.setItem("token", LoginResponse.token); //! estos detalles hay que quitarlos porque ahora es con la validacion del token
           localStorage.setItem("user", UserLogin);
           localStorage.setItem("csrfToken", LoginResponse.csrfToken);
-          navigate("/home");
+          navigate("/token-validation");
         } else {
           console.log(LoginResponse.message);
         }
@@ -79,11 +79,11 @@ export function FormLogin() {
                 Iniciar sesión
               </button>
 
-              <a href="#">
+              <Link to="/forgot-password">
                 <p id="request_retrieve_token">
                   ¿Olvidaste tu contraseña? has <strong>Click aquí</strong>
                 </p>
-              </a>
+              </Link>
             </form>
           </div>
         </div>

@@ -10,6 +10,7 @@ import { UserView } from "./components/Dashboard/Users";
 import ForgotPass from "./components/Login/ForgotPass";
 import TokenValidation from "./components/Login/TokenValidation";
 import ReduxPrueba from "./components/Login/ReduxPrueba";
+import ChangePassword from "./components/Login/ChangePassword";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/guarantee" element={<GuaranteeView />} />
         <Route path="/token-validation" element={<TokenValidation />} />
         <Route path="/forgot-password" element={<ForgotPass />} />
+        <Route path="/change-password" element={<ChangePassword />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/redux-prueba" element={<ReduxPrueba />} />
       </Routes>

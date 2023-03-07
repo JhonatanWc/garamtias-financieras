@@ -1,6 +1,10 @@
 import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 
 export default function TokenValidation() {
+  const handleReSendToken = () => {
+    console.log("Se maneja reenvio de token");
+    //* se navega desde aca a home
+  };
   return (
     <>
       <div id="main__wrapper" className="login">
@@ -20,12 +24,10 @@ export default function TokenValidation() {
             <button className="wcbtn btn-primary btn-lg btn-block">
               Enviar token
             </button>
-            <a href="#">
-              <p id="request_retrieve_token">
-                No recibió su código, para reenviarlo a su correo registrado{" "}
-                <strong>Click aquí</strong>
-              </p>
-            </a>
+            <p id="request_retrieve_token" onClick={handleReSendToken}>
+              No recibió su código, para reenviarlo a su correo registrado{" "}
+              <strong>Click aquí</strong>
+            </p>
           </form>
         </div>
       </div>

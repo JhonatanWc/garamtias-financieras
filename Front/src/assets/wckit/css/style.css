@@ -84,6 +84,17 @@
   /* TOKEN VALIDATION */
   #request_retrieve_token {
     padding-top: 1.5rem;
+    cursor: pointer;
+  }
+
+  /* FORGOT PASS */
+  #recover-password-msg {
+    margin-top: 1.5rem;
+  }
+
+  /* CHANGE PASS */
+  .title_login {
+    margin-top: 1.5rem;
   }
 
   /*************************************** DASHBOARD ***************************************/
