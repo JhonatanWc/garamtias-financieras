@@ -4,13 +4,13 @@ import React from "react";
 // Components
 import { Home } from "./components/Dashboard/Home";
 import { FormLogin } from "./components/Login/LoginForm";
-import { NotFound } from "./context/ApiContext";
 import { GuaranteeView } from "./components/Dashboard/Guarantee";
 import { UserView } from "./components/Dashboard/Users";
 import ForgotPass from "./components/Login/ForgotPass";
 import TokenValidation from "./components/Login/TokenValidation";
 import ReduxPrueba from "./components/Login/ReduxPrueba";
 import ChangePassword from "./components/Login/ChangePassword";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
