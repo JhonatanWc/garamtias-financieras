@@ -10,6 +10,7 @@ Route::post('v1/login', [LoginController::class,'requestLogin']);
 Route::post('v1/forgot-password', [LoginController::class,'forgotPassword']);
 Route::post('v1/recovery-password', [LoginController::class,'recoveryPassword']);
 Route::post('v1/resend-token', [LoginController::class,'resendToken']);
+Route::post('v1/validate-token', [LoginController::class,'validateToken']);
 
 // Route::group(['middleware' => ['auth']], function () {
     // Route::get('v1/myProfile', [LoginController::class,'AuthUser']);

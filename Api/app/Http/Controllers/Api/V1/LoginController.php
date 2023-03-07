@@ -121,14 +121,13 @@ class LoginController extends Controller
 
                         Mail::to($user_email)->send(new loginTokenMail($details));
                     
-                        // $user =  Auth::loginUsingId($login[0]->id);
-                        // $from_token = $user->createToken('token')->plainTextToken;
-                        // $cookie = cookie('jwt',$from_token,60*24);
-                        // return response([
-                        //     'message' => 'success',
-                        //     'status' => "200",
-                        //     'token' => $from_token
-                        // ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
+                            return response([
+                                'status' => "200",
+                                'people_id' => $people[0]->id,
+                                'people_email' => $people[0]->email,
+                                'login_id' => $login[0]->id
+                            ]);
+                        
                     }else{
                         return response([
                             'message' => 'block user',  
@@ -247,7 +246,65 @@ class LoginController extends Controller
 
     public function resendToken(Request $request)
     {
-        # code...
+        $user_email = $request->post("user_email");
+        $validate = false;
+        if($user_email != "") $validate = true;
+        if($validate){
+            $people = people::where('email', '=', $user_email)->get();
+            if(isset($people[0])){
+                $login = login::where('person_id', '=', $people[0]->id)
+                ->get();
+                $characters = '0123456789';
+                $charactersLength = strlen($characters);
+                $token = '';
+
+                for ($i = 0; $i < 6; $i++) {
+                    $token .= $characters[rand(0, $charactersLength - 1)];
+                }
+
+                $details = [
+                    'token' => $token,
+                ];
+
+                $login_data = login::find($login[0]->id);
+                $login_data->token = $token;
+                $login_data->save();
+                Mail::to($user_email)->send(new loginTokenMail($details));
+                return response([
+                    'message' => 'Token Resend',  
+                    'status' => "200",
+                ]);
+            }else{
+
+            }
+        }
+    }
+
+    public function validateToken(Request $request)
+    {
+        $login_id = $request->post('id_login');
+        $token = $request->post('token');
+        $validate = false;
+        if($token != "")$validate = true;
+        if($validate){
+            $login_data = login::find($login_id);
+            if($token == $login_data->token){
+                $user =  Auth::loginUsingId($login_id);
+                $from_token = $user->createToken('token')->plainTextToken;
+                $cookie = cookie('jwt',$from_token,60*24);
+                return response([
+                    'message' => 'success',
+                    'status' => "200",
+                    'token' => $from_token
+                ], status:Response::HTTP_ACCEPTED)->withCookie($cookie);
+            }
+        }else{
+            return response([
+                'message' => 'Any fields are empty',  
+                'status' => "204",
+            ]);
+        }
+        
     }
 
     public function AuthUser()
