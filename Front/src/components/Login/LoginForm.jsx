@@ -17,26 +17,55 @@ export function FormLogin() {
   const urlLogin = getApiUrl() + "/v1/login";
 
   const SubmitLoginForm = (e) => {
-    e.preventDefault();
-    axios
-      .get(urlLogin, {
-        params: {
-          user_login: UserLogin,
-          user_password: UserPassword,
-        },
-      })
-      .then((res) => {
-        const persons = res.data;
-        SetLoginResponse(persons);
-        console.log(LoginResponse);
+    // e.preventDefault();
+    // axios
+    //   .get(urlLogin, {
+    //     params: {
+    //       user_login: UserLogin,
+    //       user_password: UserPassword,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     const persons = res.data;
+    //     SetLoginResponse(persons);
+    //     console.log(LoginResponse);
 
-        if (LoginResponse.status == 200) {
-          localStorage.setItem("token", LoginResponse.token); //! estos detalles hay que quitarlos porque ahora es con la validacion del token
+    //     if (LoginResponse.status == 200) {
+    //       localStorage.setItem("token", LoginResponse.token); //! estos detalles hay que quitarlos porque ahora es con la validacion del token
+    //       localStorage.setItem("user", UserLogin);
+    //       localStorage.setItem("csrfToken", LoginResponse.csrfToken);
+    //       navigate("/token-validation");
+    //     } else {
+    //       console.log(LoginResponse.message);
+    //     }
+    //   });
+
+    e.preventDefault();
+
+    axios
+      .post(urlLogin, {
+        user_email: UserLogin,
+        user_password: UserPassword,
+      })
+      .then((getResponse) => {
+        //   console.log(getResponse.data);
+        const persons = getResponse.data;
+        SetLoginResponse(persons);
+        // console.log(LoginResponse);
+
+        if (persons.status == 200) {
+          localStorage.setItem("token", LoginResponse.token);
           localStorage.setItem("user", UserLogin);
           localStorage.setItem("csrfToken", LoginResponse.csrfToken);
           navigate("/token-validation");
         } else {
-          console.log(LoginResponse.message);
+          // Swal.fire({
+          //   icon: 'error',
+          //   title: 'Oops...',
+          //   text: persons.message,
+           
+          // })
+          console.log(persons.message)
         }
       });
   };
