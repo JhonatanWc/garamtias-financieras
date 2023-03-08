@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\RoleController;
+use App\Http\Controllers\Api\V1\MyAccountController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,9 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('v1/list-role', [RoleController::class,'listRole']);
     Route::post('v1/create-role', [RoleController::class,'createRole']);
 
+    Route::apiResource('v1/my-profile', MyAccountController::class);
+    Route::post('v1/get-profile', [MyAccountController::class,'getMyProfile']);
+    Route::put('v1/update-profile', [MyAccountController::class,'updateMyProfile']);
     // Route::apiResource('v1/users', UserController::class);
     // Route::post('v1/get-profile', [UserController::class,'getProfile']);
     // Route::put('v1/update-profile', [UserController::class,'updateProfile']);

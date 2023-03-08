@@ -281,7 +281,7 @@ class LoginController extends Controller
 
     public function validateToken(Request $request)
     {
-        $login_id = $request->post('login_id');
+        $login_id = $request->post('id_login');
         $token = $request->post('token');
         $validate = false;
         if($token != "")$validate = true;
