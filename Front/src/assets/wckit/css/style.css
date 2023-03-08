@@ -94,10 +94,43 @@
   #recover-password-msg {
     margin-top: 1.5rem;
   }
+  #forgot-pass-title {
+    font-size: 3rem;
+    margin-top: 1.5rem;
+  }
 
   /* CHANGE PASS */
   .title_login {
     margin-top: 1.5rem;
+  }
+
+  /*
+######################################################################
+  Dashboard
+######################################################################
+/*
+
+  /* LOGO */
+  .sidebar__logo_container {
+    display: flex;
+    justify-content: center;
+  }
+  .sidebar-logo {
+    width: 70%;
+  }
+
+  /* USUARIOS*/
+  .tabs-container {
+    padding: 0px 20%;
+    display: flex;
+    justify-content: space-around;
+  }
+  .user_magnament_tabs {
+    display: flex;
+    justify-content: start;
+  }
+  .user_magnament_tabs > a {
+    margin-right: 10px;
   }
 
   /*************************************** DASHBOARD ***************************************/

@@ -4,7 +4,8 @@ const initialState = {
   peopleId:0,
   peopleEmail: "no email",
   loginId: 0,
-  token:"no token"
+  token: "no token",
+  peopleName: "no name"
 }
 
 export const loginConfirmSlice = createSlice({
@@ -19,10 +20,14 @@ export const loginConfirmSlice = createSlice({
     },
     confirmLogin: (state, action) => {
       state.token = action.payload
+    },
+    setUserData: (state, action) => {
+      console.log("se dispara evento setUserData con redux");
+      //state.peopleName = action.payload
     }
   }
 })
 
-export const { setLoginDataStart, confirmLogin } = loginConfirmSlice.actions
+export const { setLoginDataStart, confirmLogin, setUserData } = loginConfirmSlice.actions
 
 export default loginConfirmSlice.reducer

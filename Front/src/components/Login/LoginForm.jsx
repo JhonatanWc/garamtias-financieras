@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Outlet } from "react-router-dom";
 import { getApiUrl } from "../../context/ApiContext";
 import { setLoginDataStart } from "../../features/tasks/loginConfirmSlice";
 import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
@@ -34,7 +34,7 @@ export function FormLogin() {
         dispatch(setLoginDataStart(loginDataStart));
         setTimeout(() => {}, 500);
         if (persons.status == 200) {
-          navigate("/token-validation");
+          navigate("/login/token-validation");
         } else {
           // todo pendiente temas de alertas
           // Swal.fire({
@@ -89,7 +89,7 @@ export function FormLogin() {
                 Iniciar sesión
               </button>
 
-              <Link to="/forgot-password">
+              <Link to="/login/forgot-password">
                 <p id="request_retrieve_token">
                   ¿Olvidaste tu contraseña? has <strong>Click aquí</strong>
                 </p>
@@ -97,9 +97,10 @@ export function FormLogin() {
             </form>
           </div>
         </div>
+        <Outlet />
       </>
     );
   } else {
-    window.location.replace("/home");
+    navigate("/dashboard/home");
   }
 }
