@@ -13,7 +13,8 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         role::create([
-            'role_name' => 'Super Admin'
+            'role_name' => 'Super Admin',
+            'permissions' => '["Crear roles", "Editar roles", "Asignar permisos"]',
         ]);
     }
 }
