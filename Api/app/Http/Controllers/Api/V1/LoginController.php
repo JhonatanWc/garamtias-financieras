@@ -12,7 +12,7 @@ use App\Models\login;
 use App\Mail\loginTokenMail;
 use App\Mail\forgotPasswordEmailMail;
 
-
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cookie;
@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -281,7 +282,7 @@ class LoginController extends Controller
 
     public function validateToken(Request $request)
     {
-        $login_id = $request->post('id_login');
+        $login_id = $request->post('login_id');
         $token = $request->post('token');
         $validate = false;
         if($token != "")$validate = true;
@@ -306,10 +307,7 @@ class LoginController extends Controller
         
     }
 
-    public function AuthUser()
-    {
-        return Auth::user();
-    }
+  
 
     public function logout()
     {
