@@ -1,34 +1,47 @@
 import React from "react";
 import { useState } from "react";
+import { getApiUrl } from "../../context/ApiContext";
 import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function ChangePassword() {
+  // ! se intento implementar en useEffect, de varias mañas nos e logro, no pero no dejaba disponer de las variables desde, tema a revisar
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const token = urlParams.get("token");
+  const email = urlParams.get("email");
+  console.log(token); //todo para remover
+  console.log(email); //todo para remover
+
   const [newPass, setNewPass] = useState("");
   const [confirmPass, setconfirmPass] = useState("");
+  const navigate = useNavigate();
+
+  const urlRecoveryPassword = getApiUrl() + "/v1/recovery-password";
 
   const SubmitChangePassForm = (e) => {
     e.preventDefault();
-    axios
-      .get(urlLogin, {
-        params: {
-          user_login: UserLogin,
-          user_password: UserPassword,
-        },
-      })
-      .then((res) => {
-        const persons = res.data;
-        SetLoginResponse(persons);
-        console.log(LoginResponse);
-
-        if (LoginResponse.status == 200) {
-          localStorage.setItem("token", LoginResponse.token); //! estos detalles hay que quitarlos porque ahora es con la validacion del token
-          localStorage.setItem("user", UserLogin);
-          localStorage.setItem("csrfToken", LoginResponse.csrfToken);
-          navigate("/home");
-        } else {
-          console.log(LoginResponse.message);
-        }
-      });
+    if (newPass !== confirmPass) {
+      alert("Las contraseñas no son iguales");
+      return;
+    } else {
+      axios
+        .post(urlRecoveryPassword, {
+          user_email: email,
+          user_password: newPass,
+          user_token: token,
+        })
+        .then((res) => {
+          console.log(res.data.message);
+          if (res.data.status == "200") {
+            alert(
+              "Su contraseña ha sido correctamente, inicia sesion por favor"
+            );
+            navigate("/login");
+          }
+        });
+    }
   };
   return (
     <>
@@ -41,8 +54,8 @@ function ChangePassword() {
               <div className="wccol-sm-12 wccol-md12">
                 <label>Nueva contraseña</label>
                 <input
-                  type="text"
-                  placeholder="Correo electrónico"
+                  type="password"
+                  placeholder="Coloque su nueva contraseña"
                   onChange={(e) => {
                     setNewPass(e.target.value);
                   }}
@@ -55,7 +68,7 @@ function ChangePassword() {
                 <label>Confirmar contraseña</label>
                 <input
                   type="password"
-                  placeholder="Contraseña"
+                  placeholder="Repita su nueva contraseña"
                   onChange={(e) => {
                     setconfirmPass(e.target.value);
                   }}

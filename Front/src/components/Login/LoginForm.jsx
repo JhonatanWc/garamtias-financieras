@@ -1,45 +1,21 @@
 import axios from "axios";
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 import { getApiUrl } from "../../context/ApiContext";
-import { AuthContext } from "../../context/AuthContext";
+import { setLoginDataStart } from "../../features/tasks/loginConfirmSlice";
 import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 
 export function FormLogin() {
-  const { createLoginSession } = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const [UserLogin, SetUserLogin] = useState("");
   const [UserPassword, SetUserPassword] = useState("");
-  const [LoginResponse, SetLoginResponse] = useState("");
-  const [csrfToken, setCsrfToken] = useState("");
 
   const urlLogin = getApiUrl() + "/v1/login";
 
   const SubmitLoginForm = (e) => {
-    // e.preventDefault();
-    // axios
-    //   .get(urlLogin, {
-    //     params: {
-    //       user_login: UserLogin,
-    //       user_password: UserPassword,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     const persons = res.data;
-    //     SetLoginResponse(persons);
-    //     console.log(LoginResponse);
-
-    //     if (LoginResponse.status == 200) {
-    //       localStorage.setItem("token", LoginResponse.token); //! estos detalles hay que quitarlos porque ahora es con la validacion del token
-    //       localStorage.setItem("user", UserLogin);
-    //       localStorage.setItem("csrfToken", LoginResponse.csrfToken);
-    //       navigate("/token-validation");
-    //     } else {
-    //       console.log(LoginResponse.message);
-    //     }
-    //   });
-
     e.preventDefault();
 
     axios
@@ -48,25 +24,30 @@ export function FormLogin() {
         user_password: UserPassword,
       })
       .then((getResponse) => {
-        //   console.log(getResponse.data);
+        // todo pendiente refactor
         const persons = getResponse.data;
-        SetLoginResponse(persons);
-        // console.log(LoginResponse);
-
+        let loginDataStart = {
+          peopleId: persons.people_id,
+          peopleEmail: persons.people_email,
+          loginId: persons.login_id,
+        };
+        dispatch(setLoginDataStart(loginDataStart));
+        setTimeout(() => {}, 500);
         if (persons.status == 200) {
-          localStorage.setItem("token", LoginResponse.token);
-          localStorage.setItem("user", UserLogin);
-          localStorage.setItem("csrfToken", LoginResponse.csrfToken);
           navigate("/token-validation");
         } else {
+          // todo pendiente temas de alertas
           // Swal.fire({
           //   icon: 'error',
           //   title: 'Oops...',
           //   text: persons.message,
-           
+
           // })
-          console.log(persons.message)
+          console.log(persons.message);
         }
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -121,5 +102,4 @@ export function FormLogin() {
   } else {
     window.location.replace("/home");
   }
-  console.log("🚀 ~ file: LoginForm.jsx:95 ~ FormLogin ~ input:", input);
 }

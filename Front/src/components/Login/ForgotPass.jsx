@@ -1,12 +1,29 @@
 import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 import { useState } from "react";
+import axios from "axios";
+import { getApiUrl } from "../../context/ApiContext";
+import { useSelector } from "react-redux";
 
 export default function ForgotPass() {
+  const [emailField, setEmailField] = useState("");
   const [emailSended, setEmailSended] = useState(false);
 
+  const urlForgotPassword = getApiUrl() + "/v1/forgot-password";
+
   const handleSend = () => {
-    // ? aqui iria tambien el tema de la peticion de envio de correo
-    setEmailSended(true);
+    axios
+      .post(urlForgotPassword, {
+        user_email: emailField,
+      })
+      .then((res) => {
+        console.log(res.data.message);
+        if (res.data.status == "200") {
+          setEmailSended(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -18,42 +35,33 @@ export default function ForgotPass() {
             <h1>Recupere su contraseña</h1>
           </form>
           {emailSended ? (
-            <EmailSended />
+            <p id="recover-password-msg">
+              Hemos enviado un correo, revisalo y da click al link de
+              recuperacion.
+            </p>
           ) : (
-            <SendEmail handleSend={handleSend} />
+            <>
+              <div className="wcrow">
+                <div className="wccol-sm-12 wccol-md12">
+                  <label>Direccion de correo electronico</label>
+                  <input
+                    type="text"
+                    placeholder="Ingrese el token que recibio via email"
+                    onChange={(e) => setEmailField(e.target.value)}
+                    value={emailField}
+                  />
+                </div>
+              </div>
+              <button
+                className="wcbtn btn-primary btn-lg btn-block"
+                onClick={handleSend}
+              >
+                Enviar correo de recuperacion
+              </button>
+            </>
           )}
         </div>
       </div>
     </>
-  );
-}
-
-function SendEmail({ handleSend }) {
-  return (
-    <>
-      <div className="wcrow">
-        <div className="wccol-sm-12 wccol-md12">
-          <label>Direccion de correo electronico</label>
-          <input
-            type="text"
-            placeholder="Ingrese el token que recibio via email"
-          />
-        </div>
-      </div>
-      <button
-        className="wcbtn btn-primary btn-lg btn-block"
-        onClick={handleSend}
-      >
-        Enviar correo de recuperacion
-      </button>
-    </>
-  );
-}
-
-function EmailSended() {
-  return (
-    <p id="recover-password-msg">
-      Hemos enviado un correo, revisalo y da click al link de recuperacion.
-    </p>
   );
 }
