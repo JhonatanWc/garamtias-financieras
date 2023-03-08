@@ -40,7 +40,7 @@ export default function TokenValidation() {
     e.preventDefault();
     axios
       .post(urlValidateToken, {
-        id_login: loginConfirm.loginId,
+        login_id: loginConfirm.loginId,
         token: token,
       })
       .then((res) => {
@@ -50,7 +50,7 @@ export default function TokenValidation() {
           return;
         }
         dispatch(confirmLogin(res.data.token));
-        navigate("/home");
+        navigate("/dashboard/home");
       })
       .catch((error) => {
         console.log(error);

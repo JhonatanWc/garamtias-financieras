@@ -2,7 +2,6 @@ import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 import { useState } from "react";
 import axios from "axios";
 import { getApiUrl } from "../../context/ApiContext";
-import { useSelector } from "react-redux";
 
 export default function ForgotPass() {
   const [emailField, setEmailField] = useState("");
@@ -32,7 +31,7 @@ export default function ForgotPass() {
         <div className="container__row">
           <form>
             <LobbyLogo urlImagePath="./src/assets/images/logo.png" />
-            <h1>Recupere su contraseña</h1>
+            <h1 id="forgot-pass-title">Recupere su contraseña</h1>
           </form>
           {emailSended ? (
             <p id="recover-password-msg">
