@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\MyAccountController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\GuaranteeController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -34,5 +35,9 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('v1/users', UserController::class);
     Route::get('v1/list-users', [UserController::class,'listUsers']);
     Route::post('v1/create-users', [UserController::class,'listUsers']);
+
+    Route::apiResource('v1/guarantees', GuaranteeController::class);
+    Route::post('v1/register-guarantee', [GuaranteeController::class,'registerGuarantee']);
+    
     
 });

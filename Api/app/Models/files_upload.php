@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class files_uploads extends Model
+class files_upload extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id',
+        'file',
         'file_type',
-        'user_id',
+        'login_id',
         'status',
     ];
 }
