@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\MyAccountController;
+use App\Http\Controllers\Api\V1\UserController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -14,13 +15,6 @@ Route::post('v1/recovery-password', [LoginController::class,'recoveryPassword'])
 Route::post('v1/resend-token', [LoginController::class,'resendToken']);
 Route::post('v1/validate-token', [LoginController::class,'validateToken']);
 Route::post('v1/logout', [LoginController::class,'logout']);
-
-
-
-// Route::group(['middleware' => ['auth']], function () {
-    // Route::get('v1/myProfile', [LoginController::class,'AuthUser']);
-    // Route::get('v1/logout', [LoginController::class,'logout']);
-// });
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('v1/myProfile', [LoginController::class,'AuthUser']);
@@ -35,7 +29,10 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('v1/my-profile', MyAccountController::class);
     Route::post('v1/get-profile', [MyAccountController::class,'getMyProfile']);
     Route::put('v1/update-profile', [MyAccountController::class,'updateMyProfile']);
-    // Route::apiResource('v1/users', UserController::class);
-    // Route::post('v1/get-profile', [UserController::class,'getProfile']);
-    // Route::put('v1/update-profile', [UserController::class,'updateProfile']);
+    
+
+    Route::apiResource('v1/users', UserController::class);
+    Route::get('v1/list-users', [UserController::class,'listUsers']);
+    Route::post('v1/create-users', [UserController::class,'listUsers']);
+    
 });

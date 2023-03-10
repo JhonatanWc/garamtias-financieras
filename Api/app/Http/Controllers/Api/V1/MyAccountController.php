@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\people;
 use App\Models\login;
 use App\Models\role;
+use App\Models\relation;
 
 class MyAccountController extends Controller
 {
@@ -69,11 +70,15 @@ class MyAccountController extends Controller
             $additional_permissions = (is_array(json_decode($login->additional_permissions,true)))? json_decode($login->additional_permissions,true): array();
     
             $permissions = array_merge($rol_permissions,  $additional_permissions);
+
+            $relation = relation::where('person1', '=', $person_id)
+            ->get();
     
             return response([
                 'profile_data' => $people,  
                 'account_data' => $login,  
                 'permissions' => $permissions,  
+                'relations' => $relation,  
                 'status' => "200",
             ]);
         }else{
@@ -90,6 +95,8 @@ class MyAccountController extends Controller
     public function updateMyProfile(Request $request)
     {
         $person_id = $request->post('person_id');
+        $type_relation = $request->post('type_relation');
+        $relation_id = $request->post('relation_id');
         $login_id = $request->post('login_id');
         $document = $request->input('document');
         $names = $request->input('names');
@@ -142,6 +149,25 @@ class MyAccountController extends Controller
                 $login_data->password = md5($password);
                 $login_data->save();
             }
+
+            if($type_relation != "" && $relation_id != ""){
+                $relation = relation::where('person1', '=', $person_id)
+                ->get();
+
+                if(isset($relation[0])){
+                    $update_relation = relation::find($relation[0]->id);
+                    $update_relation->type_relation = $type_relation;
+                    $update_relation->person2 = $relation_id;
+                    $update_relation->save();
+                }else{
+                    $new_relation = relation::create([
+                        'person1' => $person_id,
+                        'type_relation' => $type_relation,
+                        'person2' => $relation_id,
+                    ]);
+                }
+            }
+
             return response([
                 'message' => 'user update',  
                 'status' => "200",
