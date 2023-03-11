@@ -68,7 +68,7 @@ export function NavPanel() {
         </ul>
       </li>
       <li>
-        <Link to="/dashboard/portfolio">
+        <Link to="/dashboard/client-portfolio">
           <div className="container__icon">
             <span className="wcicon outlined">monetization_on</span>
           </div>

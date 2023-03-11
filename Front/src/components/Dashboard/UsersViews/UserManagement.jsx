@@ -5,7 +5,7 @@ export function UserManagement() {
   const [TagMenu, SetTagMenu] = useState("");
   return (
     <>
-      <nav className="user_magnament_tabs">
+      <nav className="sub_tabs">
         <Link to="/dashboard/users/management/manage">
           <button>Gestion De usuario</button>
         </Link>

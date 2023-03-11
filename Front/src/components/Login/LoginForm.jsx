@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link, Outlet } from "react-router-dom";
-import { getApiUrl } from "../../context/ApiContext";
+import { useDispatch } from "react-redux";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { getApiUrlBase } from "../../context/ApiContext";
 import { setLoginDataStart } from "../../features/tasks/loginConfirmSlice";
 import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 
@@ -13,7 +13,7 @@ export function FormLogin() {
   const [UserLogin, SetUserLogin] = useState("");
   const [UserPassword, SetUserPassword] = useState("");
 
-  const urlLogin = getApiUrl() + "/v1/login";
+  const urlLogin = getApiUrlBase() + "login";
 
   const SubmitLoginForm = (e) => {
     e.preventDefault();

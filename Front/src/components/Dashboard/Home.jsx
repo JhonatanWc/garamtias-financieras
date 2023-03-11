@@ -2,10 +2,9 @@ import axios from "axios";
 import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getApiUrl } from "../../context/ApiContext";
+import { getApiUrlBase } from "../../context/ApiContext";
 import { AuthContext } from "../../context/AuthContext";
 import { setUserData } from "../../features/tasks/loginConfirmSlice";
-import { NavPanel } from "../Templates/NavPanel";
 
 import Swal from "sweetalert2";
 
@@ -16,8 +15,8 @@ export function Home() {
   const token = localStorage.getItem("token");
   const csrfToken = localStorage.getItem("csrfToken");
 
-  const urlMyProfile = getApiUrl() + "/v1/myProfile";
-  const urlLogout = getApiUrl() + "/v1/logout";
+  const urlMyProfile = getApiUrlBase() + "myProfile";
+  const urlLogout = getApiUrlBase() + "logout";
 
   // ? recogiendo el estado de login en redux
   const loginState = useSelector((state) => state.loginConfirm);

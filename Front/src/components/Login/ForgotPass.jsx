@@ -1,13 +1,13 @@
-import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
-import { useState } from "react";
 import axios from "axios";
-import { getApiUrl } from "../../context/ApiContext";
+import { useState } from "react";
+import { getApiUrlBase } from "../../context/ApiContext";
+import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 
 export default function ForgotPass() {
   const [emailField, setEmailField] = useState("");
   const [emailSended, setEmailSended] = useState(false);
 
-  const urlForgotPassword = getApiUrl() + "/v1/forgot-password";
+  const urlForgotPassword = getApiUrlBase() + "forgot-password";
 
   const handleSend = () => {
     axios

@@ -1,9 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import { getApiUrl } from "../../context/ApiContext";
-import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getApiUrlBase } from "../../context/ApiContext";
+import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 
 function ChangePassword() {
   // ! se intento implementar en useEffect, de varias mañas nos e logro, no pero no dejaba disponer de las variables desde, tema a revisar
@@ -18,7 +17,7 @@ function ChangePassword() {
   const [confirmPass, setconfirmPass] = useState("");
   const navigate = useNavigate();
 
-  const urlRecoveryPassword = getApiUrl() + "/v1/recovery-password";
+  const urlRecoveryPassword = getApiUrlBase() + "recovery-password";
 
   const SubmitChangePassForm = (e) => {
     e.preventDefault();

@@ -37,9 +37,11 @@ export function MyProfile() {
         </div>
         <div className="wcrow">
           <div className="wccol-sm-12 wccol-md-6">
-            <label>Casa de Cobranza</label>
+            <label>Tipo de relacion</label>
             <select>
-              <option> -- Seleccione --</option>
+              <option>Ninguno</option>
+              <option>Usuario cobransas</option>
+              <option>Usuario crediticio</option>
             </select>
           </div>
           <div className="wccol-sm-12 wccol-md-6">

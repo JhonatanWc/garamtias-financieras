@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getApiUrl } from "../../context/ApiContext";
-import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 import axios from "axios";
-import { confirmLogin } from "../../features/tasks/loginConfirmSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getApiUrlBase } from "../../context/ApiContext";
+import { confirmLogin } from "../../features/tasks/loginConfirmSlice";
+import LobbyLogo from "../Dashboard/atoms/LobbyLogo";
 export default function TokenValidation() {
   const [token, setToken] = useState("");
   const [resendingToken, setResendingToken] = useState(false);
@@ -12,8 +12,8 @@ export default function TokenValidation() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const urlValidateToken = getApiUrl() + "/v1/validate-token";
-  const urlResendToken = getApiUrl() + "/v1/resend-token";
+  const urlValidateToken = getApiUrlBase() + "validate-token";
+  const urlResendToken = getApiUrlBase() + "resend-token";
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,6 +38,7 @@ export default function TokenValidation() {
 
   const submitConfirmToken = (e) => {
     e.preventDefault();
+    console.log("urlValidateToken: " + urlValidateToken);
     axios
       .post(urlValidateToken, {
         login_id: loginConfirm.loginId,
@@ -56,6 +57,14 @@ export default function TokenValidation() {
         console.log(error);
       });
   };
+  console.log(
+    "🚀 ~ file: TokenValidation.jsx:60 ~ submitConfirmToken ~ urlValidateToken:",
+    urlValidateToken
+  );
+  console.log(
+    "🚀 ~ file: TokenValidation.jsx:60 ~ submitConfirmToken ~ urlValidateToken:",
+    urlValidateToken
+  );
 
   return (
     <>

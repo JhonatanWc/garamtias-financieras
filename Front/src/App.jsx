@@ -1,36 +1,36 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Components
-import { Home } from "./components/Dashboard/Home";
-import { FormLogin } from "./components/Login/LoginForm";
-import { GuaranteeView } from "./components/Dashboard/Guarantee";
-import { UserView } from "./components/Dashboard/Users";
-import ForgotPass from "./components/Login/ForgotPass";
-import TokenValidation from "./components/Login/TokenValidation";
-import ReduxPrueba from "./components/Login/ReduxPrueba";
-import ChangePassword from "./components/Login/ChangePassword";
-import NotFound from "./components/NotFound";
+import ClientPortfolio from "./components/Dashboard/ClientPortfolio";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Reports from "./components/Dashboard/Reports";
-import Processes from "./components/Dashboard/Processes";
-import Portfolio from "./components/Dashboard/Portfolio";
-import { MyProfile } from "./components/Dashboard/UsersViews/Profile";
-import { UserManagement } from "./components/Dashboard/UsersViews/UserManagement";
-import { Roles } from "./components/Dashboard/UsersViews/Roles";
-import Manage from "./components/Dashboard/UsersViews/UserManagement/Manage";
-import FilterSearch from "./components/Dashboard/UsersViews/UserManagement/FilterSearch";
-import UserList from "./components/Dashboard/UsersViews/UserManagement/UserList";
+import { GuaranteeView } from "./components/Dashboard/Guarantee";
+import ClaimFiles from "./components/Dashboard/GuaranteeViews/ClaimFiles";
 import { RegisterGuarantee } from "./components/Dashboard/GuaranteeViews/RegisterGuarantee";
 import { SearchGuarantee } from "./components/Dashboard/GuaranteeViews/SearchGuarantee";
-import ClaimFiles from "./components/Dashboard/GuaranteeViews/ClaimFiles";
+import { Home } from "./components/Dashboard/Home";
+import Processes from "./components/Dashboard/Processes";
+import CollectionManagement from "./components/Dashboard/Processes/CollectionManagement";
+import ManageInterests from "./components/Dashboard/Processes/ManageInterests";
+import ProductCreation from "./components/Dashboard/Processes/ProductCreation";
+import System from "./components/Dashboard/Processes/System";
+import WarrantyAdjustment from "./components/Dashboard/Processes/WarrantyAdjustment";
+import Reports from "./components/Dashboard/Reports";
 import SearchList from "./components/Dashboard/Reports/SearchList";
 import Statistics from "./components/Dashboard/Reports/Statistics";
-import System from "./components/Dashboard/Processes/System";
-import CollectionManagement from "./components/Dashboard/Processes/CollectionManagement";
-import WarrantyAdjustment from "./components/Dashboard/Processes/WarrantyAdjustment";
-import ProductCreation from "./components/Dashboard/Processes/ProductCreation";
-import ManageInterests from "./components/Dashboard/Processes/ManageInterests";
+import { UserView } from "./components/Dashboard/Users";
+import { MyProfile } from "./components/Dashboard/UsersViews/Profile";
+import { Roles } from "./components/Dashboard/UsersViews/Roles";
+import { UserManagement } from "./components/Dashboard/UsersViews/UserManagement";
+import FilterSearch from "./components/Dashboard/UsersViews/UserManagement/FilterSearch";
+import Manage from "./components/Dashboard/UsersViews/UserManagement/Manage";
+import UserList from "./components/Dashboard/UsersViews/UserManagement/UserList";
+import ChangePassword from "./components/Login/ChangePassword";
+import ForgotPass from "./components/Login/ForgotPass";
+import { FormLogin } from "./components/Login/LoginForm";
+import ReduxPrueba from "./components/Login/ReduxPrueba";
+import TokenValidation from "./components/Login/TokenValidation";
+import NotFound from "./components/NotFound";
 function App() {
   return (
     <BrowserRouter>
@@ -110,7 +110,10 @@ function App() {
             />
           </Route>
 
-          <Route path="/dashboard/portfolio" element={<Portfolio />} />
+          <Route
+            path="/dashboard/client-portfolio"
+            element={<ClientPortfolio />}
+          />
         </Route>
         <Route path="/redux-prueba" element={<ReduxPrueba />} />
         <Route path="*" element={<NotFound />} />
