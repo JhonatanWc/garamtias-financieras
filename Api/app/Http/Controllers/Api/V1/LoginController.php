@@ -120,7 +120,7 @@ class LoginController extends Controller
                         $login_data->last_login = date('Y-m-d');
                         $login_data->save();
 
-                        Mail::to($user_email)->send(new loginTokenMail($details));
+                        // Mail::to($user_email)->send(new loginTokenMail($details));
                     
                             return response([
                                 'status' => "200",
@@ -267,7 +267,7 @@ class LoginController extends Controller
     
             $login_data->token = $token;
             $login_data->save();
-            Mail::to($person_data->email)->send(new loginTokenMail($details));
+            // Mail::to($person_data->email)->send(new loginTokenMail($details));
             return response([
                 'message' => 'Token Resend',  
                 'status' => "200",

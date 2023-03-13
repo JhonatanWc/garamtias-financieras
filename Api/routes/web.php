@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function (){
 
     Route::apiResource('v1/guarantees', GuaranteeController::class);
     Route::post('v1/register-guarantee', [GuaranteeController::class,'registerGuarantee']);
+    Route::get('v1/list-register-guarantee', [GuaranteeController::class,'ListRegisterGuarantee']);
     
     
 });

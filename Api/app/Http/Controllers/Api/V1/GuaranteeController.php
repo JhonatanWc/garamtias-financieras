@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 use App\Models\files_upload;
+use App\Models\register_guarantee;
+use App\Models\guarantee;
 
 use App\Jobs\GuaranteeRegisterJob;
 
@@ -81,6 +83,22 @@ class GuaranteeController extends Controller
 
         return response([
             'message' => json_encode($files_uploads),  
+            'status' => "200",
+        ]);
+    }
+
+    public function ListRegisterGuarantee()
+    {
+        $list_register_guarantee = register_guarantee::orderby('id', 'desc')->get();
+        $response = array();
+        foreach($list_register_guarantee as $key => $value){
+            $find_guarantee = json_decode(guarantee::find($value['id_guarantee']), true);
+            $data_array = json_decode($value, true);           
+            $merge = array_merge($find_guarantee, $data_array);
+            array_push($response, $merge);
+        }
+        return response([
+            'message' => $response,  
             'status' => "200",
         ]);
     }
