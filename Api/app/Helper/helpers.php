@@ -58,4 +58,12 @@
         }
     }
 
+    if(!function_exists('double_number_format')){
+        function double_number_format($number)
+        {
+           $double_number = str_replace(',','',$number);
+           return $double_number;
+        }
+    }
+
 ?>

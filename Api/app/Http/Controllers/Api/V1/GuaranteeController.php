@@ -11,6 +11,8 @@ use App\Models\files_upload;
 use App\Models\register_guarantee;
 use App\Models\guarantee;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Jobs\GuaranteeRegisterJob;
 
 class GuaranteeController extends Controller
@@ -60,29 +62,37 @@ class GuaranteeController extends Controller
         $file = $request->file('file');
         $management = $request->post('management');
         $login_id = $request->post('login_id');
-        $url = public_path() . '//csvs/';
+        $file_name = $file->getClientOriginalName();
+        $file_extension = $file->extension();
+        $file->storeAs('',$file_name,'public');
+
+        //Storage::disk('public')->put("registro.csv", 'hola');
+        // $url = public_path() . '//csvs/';
         
-        if(!File::isDirectory($url)){
-            File::makedirectory($url, 0777, true, true);
-        }
-        $originalFile = date('Y-m-d-H-i-s').'_'.Str::random(10);      
-        $originalFile.='.csv';
+        // if(!File::isDirectory($url)){
+        //     File::makedirectory($url, 0777, true, true);
+        // }
+        // $file_name = date('Y-m-d-H-i-s').'_'.Str::random(10);
+        // $originalFile.='.csv';
     
-        $file->move($url, $originalFile);
+        // $file->move($url, $originalFile);
         
        
         $files_uploads = files_upload::create([
-            'file' => 'public//csvs/' . $originalFile,
+            // 'file' => 'public//csvs/' . $originalFile,
+            'file' => $file_name,
             'file_type' => $management,
             'login_id' => $login_id,
             'status' => 0
         ]);
 
+        // // Storage::disk('local')->put($originalFile, $file);
+        // Storage::put($originalFile, $file);
         $registerJob = new GuaranteeRegisterJob();
         $this->dispatch($registerJob);
 
         return response([
-            'message' => json_encode($files_uploads),  
+            'message' => "ok",  
             'status' => "200",
         ]);
     }

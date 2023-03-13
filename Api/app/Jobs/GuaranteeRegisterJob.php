@@ -9,8 +9,11 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\files_upload;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\RegisterGuaranteeImport;
 
 class GuaranteeRegisterJob implements ShouldQueue
 {
@@ -38,21 +41,18 @@ class GuaranteeRegisterJob implements ShouldQueue
             $id = $value['id'];
             $file_type = $value['file_type'];
             $user_id = $value['user_id'];
-    
-            $file_url = $value['file'];
-            $file_url = substr($file_url,7);
-            $records = file(public_path() .$file_url, FILE_IGNORE_NEW_LINES);
-          
-            $headers = explode(";", $records[0]);
+            $file = $value['file'];
+            // $contents = Storage::get($file);
+            $contents = Storage::disk('public')->get($file);
+
             switch ($file_type){
                 case "register":
-                    $insert_meta = true; 
-                //    $update_file = files_upload::find($id);
-                //    $update_file->status = 1;
-                //    $update_file->save();
-
+                    Excel::import(new RegisterGuaranteeImport, $file, 'public');
                 break;
             }
+            $update_status = files_upload::find($id);
+            $update_status->status = 1;
+            $update_status->save();
         }
     }
 }
