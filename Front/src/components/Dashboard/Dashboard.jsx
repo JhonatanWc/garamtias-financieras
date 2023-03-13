@@ -1,6 +1,6 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import { NavPanel } from "../Templates/NavPanel";
+import React from "react"
+import { Outlet } from "react-router-dom"
+import { NavPanel } from "../Templates/NavPanel"
 
 function Dashboard() {
   return (
@@ -8,11 +8,7 @@ function Dashboard() {
       <div id="container__fullwrapper" className="dashboard">
         <div id="sidebar">
           <div className="container__logo sidebar__logo_container">
-            <img
-              src="/src/assets/images/logo.png"
-              className="sidebar-logo"
-              alt="Logo"
-            />
+            <img src="/src/assets/images/logo.png" className="sidebar-logo" alt="Logo" />
           </div>
           <nav id="nav__sidebar">
             <NavPanel setActive={"home"} />
@@ -53,13 +49,13 @@ function Dashboard() {
           </div>
         </div>
         <div id="main__wrapper" className="dashboard">
-          <div id="container__content">
+          <div id="dashboard__container__content">
             <Outlet />
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Dashboard;
+export default Dashboard

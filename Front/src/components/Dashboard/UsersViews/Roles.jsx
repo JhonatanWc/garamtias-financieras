@@ -1,24 +1,24 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getApiUrlBase } from "../../../context/ApiContext";
-import { useFetch } from "../../../utils/useFetch";
-import Modal from "./Roles/Modal";
-import useModal from "../../../utils/useModal";
+import axios from "axios"
+import React, { useCallback, useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getApiUrlBase } from "../../../context/ApiContext"
+import { useFetch } from "../../../utils/useFetch"
+import Modal from "./Roles/Modal"
+import useModal from "../../../utils/useModal"
 
 export function Roles() {
-  const loginState = useSelector((state) => state.loginConfirm);
-  console.log(loginState.token);
+  const loginState = useSelector((state) => state.loginConfirm)
+  console.log(loginState.token)
   const headersToken = {
     Authorization: "Bearer " + loginState.token,
     "Content-Type": "application/json",
     "X-Requested-With": "XMLHttpRequest",
-  };
-  const urlRoleList = getApiUrlBase() + "list-role";
-  const { loading, data } = useFetch(urlRoleList, headersToken);
-  const [roleSelected, setRoleSelected] = useState({});
+  }
 
-  const [toggle, visible] = useModal();
+  const urlRoleList = getApiUrlBase() + "list-role"
+  const { loading, data } = useFetch(urlRoleList, headersToken)
+  const [roleSelected, setRoleSelected] = useState({})
+  const [toggle, visible] = useModal()
 
   return (
     <>
@@ -63,8 +63,8 @@ export function Roles() {
                     <div className="actions-style">
                       <div
                         onClick={() => {
-                          setRoleSelected(role);
-                          toggle();
+                          setRoleSelected(role)
+                          toggle()
                         }}
                         className="container__icon actions-icons"
                       >
@@ -82,22 +82,22 @@ export function Roles() {
       </div>
       <Modal visible={visible} toggle={toggle} data={roleSelected}></Modal>
     </>
-  );
+  )
 }
 
-export default Roles;
+export default Roles
 
 function Permissions({ permissions }) {
   if (typeof permissions === "string") {
-    const perParsed = JSON.parse(permissions);
+    const perParsed = JSON.parse(permissions)
     return (
       <>
         {perParsed.map((permission) => {
-          return <div id="permissions">{permission}</div>;
+          return <div id="permissions">{permission}</div>
         })}
       </>
-    );
+    )
   } else {
-    return <div id="no-permission">❌ Sin permiso</div>;
+    return <div id="no-permission">❌ Sin permiso</div>
   }
 }

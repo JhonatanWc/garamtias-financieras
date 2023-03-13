@@ -59,7 +59,7 @@ export function RegisterGuarantee() {
   return (
     <>
       <h1>Que vamos a registrar</h1>
-      <form onSubmit={handleFileTabnNine} enctype="multipart/form-data">
+      <form onSubmit={handleFileTabnNine} encType="multipart/form-data">
         <div>
           <div>
             <label>Selecciona el tipo de archivo a subir</label>

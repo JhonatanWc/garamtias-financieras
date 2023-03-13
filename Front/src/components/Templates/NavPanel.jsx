@@ -99,18 +99,3 @@ export function NavPanel() {
     </ul>
   );
 }
-
-export function GuaranteeSearchMenu() {
-  return (
-    <>
-      <ul className="lists__items">
-        <li>Registros</li>
-        <li>Actualizaciones</li>
-        <li>Reclamaciones</li>
-        <li>Abonos por recuperación</li>
-        <li>Devolución</li>
-        <li>Pagos por reclamación</li>
-      </ul>
-    </>
-  );
-}
